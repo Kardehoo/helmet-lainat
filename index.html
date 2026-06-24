@@ -26,12 +26,12 @@
 <body>
 <header>
   <h1>Kari Haakana – kirjojen lainaseuranta</h1>
-  <div class="sub">Lainassa olevat niteet ja varausjono, summattuna kuudesta kimpasta: Helmet, PIKI, Vaski, OUTI, Keski, Kuopio. Päivitetty 2026-06-24.</div>
+  <div class="sub">Lainassa olevat niteet ja varausjono, summattuna kuudesta kirjastokimpasta. Päivitetty 2026-06-24.</div>
 </header>
 <div class="grid" id="grid"></div>
 <footer>
-  Lähde: kunkin kimpan Finna-näkymä (julkinen saatavuustieto). Lainassa = niteitä yhteensä miinus hyllyssä saatavilla.
-  Varaussumma kattaa vain Helmet, Vaski ja OUTI, koska PIKI, Keski ja Kuopio eivät julkaise varauslukua. Mittari on hetkellinen, viikoittain mitattuna.
+  Lähde: kirjastojen julkinen saatavuustieto. Lainassa = niteitä yhteensä miinus hyllyssä saatavilla.
+  Varaussumma kattaa kolme kimppaa kuudesta; muut eivät julkaise varauslukua. Mittari on hetkellinen, viikoittain mitattuna.
 </footer>
 <script>
 const DATA = [{"title": "Välitön uhka", "year": 2022, "niteita": 117, "kimpat": 6, "points": [{"date": "2026-06-24", "lainassa": 27, "varaukset": 2}]}, {"title": "Tapa hänet ensin", "year": 2023, "niteita": 120, "kimpat": 6, "points": [{"date": "2026-06-24", "lainassa": 20, "varaukset": 2}]}, {"title": "Kunnian hinta", "year": 2024, "niteita": 104, "kimpat": 6, "points": [{"date": "2026-06-24", "lainassa": 16, "varaukset": 1}]}, {"title": "Tämä on ryöstö!", "year": 2024, "niteita": 76, "kimpat": 6, "points": [{"date": "2026-06-24", "lainassa": 10, "varaukset": 1}]}, {"title": "Kirvesmies", "year": 2025, "niteita": 84, "kimpat": 6, "points": [{"date": "2026-06-24", "lainassa": 36, "varaukset": 5}]}];
@@ -46,7 +46,7 @@ function card(b){
     data:{ labels:b.points.map(p=>p.date),
       datasets:[
         {label:'Lainassa (koko maa)', data:b.points.map(p=>p.lainassa), borderColor:'#e0533d', backgroundColor:'#e0533d', tension:.25, spanGaps:true, pointRadius:3},
-        {label:'Varaukset (Helmet+Vaski+OUTI)', data:b.points.map(p=>p.varaukset), borderColor:'#3d9be0', backgroundColor:'#3d9be0', tension:.25, spanGaps:true, pointRadius:3}
+        {label:'Varaukset (3/6 kimppaa)', data:b.points.map(p=>p.varaukset), borderColor:'#3d9be0', backgroundColor:'#3d9be0', tension:.25, spanGaps:true, pointRadius:3}
       ]},
     options:{ responsive:true, maintainAspectRatio:false,
       plugins:{ legend:{ labels:{ color:'#e8eaed', boxWidth:14, font:{size:11} } } },
