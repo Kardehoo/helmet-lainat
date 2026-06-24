@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kari Haakana – kirjojen lainaseuranta Helmetissä</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root { --bg:#0f1115; --card:#181b22; --ink:#e8eaed; --muted:#9aa0aa; --line:#252a33;
+          --loan:#e0533d; --hold:#3d9be0; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+         font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif; line-height:1.5; }
+  header { padding:32px 24px 8px; max-width:1100px; margin:0 auto; }
+  h1 { font-size:24px; margin:0 0 6px; }
+  .sub { color:var(--muted); font-size:14px; }
+  .grid { max-width:1100px; margin:0 auto; padding:16px 24px 48px;
+          display:grid; grid-template-columns:repeat(auto-fill,minmax(440px,1fr)); gap:18px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 16px 8px; }
+  .card h2 { font-size:16px; margin:0 0 2px; }
+  .card .yr { color:var(--muted); font-size:13px; margin-bottom:8px; }
+  .wrap { position:relative; height:240px; }
+  footer { max-width:1100px; margin:0 auto; padding:0 24px 40px; color:var(--muted); font-size:13px; }
+  a { color:#7fb2e6; }
+  @media (max-width:520px){ .grid{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Kari Haakana – kirjojen lainaseuranta Helmetissä</h1>
+  <div class="sub">Lainassa olevat niteet ja varausjonon pituus viikoittain. Päivitetty 2026-06-24.</div>
+</header>
+<div class="grid" id="grid"></div>
+<footer>
+  Lähde: helmet.finna.fi (julkinen saatavuustieto). Lainassa = niteitä yhteensä miinus hyllyssä saatavilla.
+  Mittari on hetkellinen, joten käyrä näyttää suunnan viikkojen yli.
+</footer>
+<script>
+const DATA = [{"title": "Välitön uhka", "year": 2022, "points": [{"date": "2026-06-24", "lainassa": 11, "varaukset": 1}]}, {"title": "Tapa hänet ensin", "year": 2023, "points": [{"date": "2026-06-24", "lainassa": 8, "varaukset": 2}]}, {"title": "Kunnian hinta", "year": 2024, "points": [{"date": "2026-06-24", "lainassa": 9, "varaukset": 0}]}, {"title": "Tämä on ryöstö!", "year": 2024, "points": [{"date": "2026-06-24", "lainassa": 7, "varaukset": 0}]}, {"title": "Kirvesmies", "year": 2025, "points": [{"date": "2026-06-24", "lainassa": 11, "varaukset": 4}]}];
+function card(b){
+  const el = document.createElement('div'); el.className='card';
+  el.innerHTML = `<h2>${b.title}</h2><div class="yr">${b.year}</div><div class="wrap"><canvas></canvas></div>`;
+  document.getElementById('grid').appendChild(el);
+  const ctx = el.querySelector('canvas').getContext('2d');
+  new Chart(ctx, {
+    type:'line',
+    data:{ labels:b.points.map(p=>p.date),
+      datasets:[
+        {label:'Lainassa', data:b.points.map(p=>p.lainassa), borderColor:'#e0533d', backgroundColor:'#e0533d', tension:.25, spanGaps:true, pointRadius:3},
+        {label:'Varaukset', data:b.points.map(p=>p.varaukset), borderColor:'#3d9be0', backgroundColor:'#3d9be0', tension:.25, spanGaps:true, pointRadius:3}
+      ]},
+    options:{ responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{ labels:{ color:'#e8eaed', boxWidth:14 } } },
+      scales:{
+        x:{ ticks:{ color:'#9aa0aa', maxRotation:0, autoSkip:true }, grid:{ color:'#252a33' } },
+        y:{ beginAtZero:true, ticks:{ color:'#9aa0aa', precision:0 }, grid:{ color:'#252a33' } }
+      } }
+  });
+}
+DATA.forEach(card);
+</script>
+</body>
+</html>
