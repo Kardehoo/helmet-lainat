@@ -13,6 +13,8 @@
   header { padding:32px 24px 8px; max-width:1100px; margin:0 auto; }
   h1 { font-size:24px; margin:0 0 6px; }
   .sub { color:var(--muted); font-size:14px; }
+  .total { max-width:1100px; margin:0 auto; padding:12px 24px 0; }
+  .total .wrap { height:300px; }
   .grid { max-width:1100px; margin:0 auto; padding:16px 24px 48px;
           display:grid; grid-template-columns:repeat(auto-fill,minmax(440px,1fr)); gap:18px; }
   .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 16px 8px; }
@@ -28,6 +30,13 @@
   <h1>Kari Haakana – kirjojen lainaseuranta</h1>
   <div class="sub">Lainassa olevat niteet ja varausjono, summattuna kuudesta kirjastokimpasta. Päivitetty 2026-06-24.</div>
 </header>
+<div class="total">
+  <div class="card">
+    <h2>Kaikki kirjat yhteensä</h2>
+    <div class="meta">Lainassa ja varaukset summattuna koko maassa</div>
+    <div class="wrap"><canvas id="totalChart"></canvas></div>
+  </div>
+</div>
 <div class="grid" id="grid"></div>
 <footer>
   Lähde: kirjastojen julkinen saatavuustieto. Lainassa = niteitä yhteensä miinus hyllyssä saatavilla.
@@ -35,6 +44,7 @@
 </footer>
 <script>
 const DATA = [{"title": "Välitön uhka", "year": 2022, "niteita": 117, "kimpat": 6, "points": [{"date": "2026-06-24", "lainassa": 27, "varaukset": 2}]}, {"title": "Tapa hänet ensin", "year": 2023, "niteita": 120, "kimpat": 6, "points": [{"date": "2026-06-24", "lainassa": 20, "varaukset": 2}]}, {"title": "Kunnian hinta", "year": 2024, "niteita": 104, "kimpat": 6, "points": [{"date": "2026-06-24", "lainassa": 16, "varaukset": 1}]}, {"title": "Tämä on ryöstö!", "year": 2024, "niteita": 76, "kimpat": 6, "points": [{"date": "2026-06-24", "lainassa": 10, "varaukset": 1}]}, {"title": "Kirvesmies", "year": 2025, "niteita": 84, "kimpat": 6, "points": [{"date": "2026-06-24", "lainassa": 36, "varaukset": 5}]}];
+const TOTAL = [{"date": "2026-06-24", "lainassa": 109, "varaukset": 11}];
 function card(b){
   const el=document.createElement('div'); el.className='card';
   el.innerHTML=`<h2>${b.title} <span style="color:#9aa0aa;font-weight:400">(${b.year})</span></h2>`+
@@ -54,6 +64,18 @@ function card(b){
                y:{ beginAtZero:true, ticks:{ color:'#9aa0aa', precision:0 }, grid:{ color:'#252a33' } } } }
   });
 }
+new Chart(document.getElementById('totalChart').getContext('2d'),{
+  type:'line',
+  data:{ labels:TOTAL.map(p=>p.date),
+    datasets:[
+      {label:'Lainassa yhteensä (koko maa)', data:TOTAL.map(p=>p.lainassa), borderColor:'#e0533d', backgroundColor:'#e0533d', tension:.25, spanGaps:true, pointRadius:3},
+      {label:'Varaukset yhteensä (3/6 kimppaa)', data:TOTAL.map(p=>p.varaukset), borderColor:'#3d9be0', backgroundColor:'#3d9be0', tension:.25, spanGaps:true, pointRadius:3}
+    ]},
+  options:{ responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ labels:{ color:'#e8eaed', boxWidth:14, font:{size:11} } } },
+    scales:{ x:{ ticks:{ color:'#9aa0aa', maxRotation:0, autoSkip:true }, grid:{ color:'#252a33' } },
+             y:{ beginAtZero:true, ticks:{ color:'#9aa0aa', precision:0 }, grid:{ color:'#252a33' } } } }
+});
 DATA.forEach(card);
 </script>
 </body>
