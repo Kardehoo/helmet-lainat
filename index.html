@@ -28,7 +28,7 @@
 <body>
 <header>
   <h1>Kari Haakana – kirjojen lainaseuranta</h1>
-  <div class="sub">Lainassa olevat niteet ja varausjono, summattuna kuudesta kirjastokimpasta. Päivitetty 2026-06-24.</div>
+  <div class="sub">Lainassa olevat niteet ja varausjono, summattuna kuudesta kirjastokimpasta. Päivitetty 2026-06-29.</div>
 </header>
 <div class="total">
   <div class="card">
@@ -43,8 +43,8 @@
   Varaussumma kattaa kolme kimppaa kuudesta; muut eivät julkaise varauslukua. Mittari on hetkellinen, viikoittain mitattuna.
 </footer>
 <script>
-const DATA = [{"title": "Välitön uhka", "year": 2022, "niteita": 117, "kimpat": 6, "points": [{"date": "2026-06-24", "lainassa": 27, "varaukset": 2}]}, {"title": "Tapa hänet ensin", "year": 2023, "niteita": 120, "kimpat": 6, "points": [{"date": "2026-06-24", "lainassa": 20, "varaukset": 2}]}, {"title": "Kunnian hinta", "year": 2024, "niteita": 104, "kimpat": 6, "points": [{"date": "2026-06-24", "lainassa": 16, "varaukset": 1}]}, {"title": "Tämä on ryöstö!", "year": 2024, "niteita": 76, "kimpat": 6, "points": [{"date": "2026-06-24", "lainassa": 10, "varaukset": 1}]}, {"title": "Kirvesmies", "year": 2025, "niteita": 84, "kimpat": 6, "points": [{"date": "2026-06-24", "lainassa": 36, "varaukset": 5}]}];
-const TOTAL = [{"date": "2026-06-24", "lainassa": 109, "varaukset": 11}];
+const DATA = [{"title": "Välitön uhka", "year": 2022, "niteita": 117, "kimpat": 6, "points": [{"date": "2026-06-24", "lainassa": 27, "varaukset": 2}, {"date": "2026-06-29", "lainassa": 28, "varaukset": 2}]}, {"title": "Tapa hänet ensin", "year": 2023, "niteita": 120, "kimpat": 6, "points": [{"date": "2026-06-24", "lainassa": 20, "varaukset": 2}, {"date": "2026-06-29", "lainassa": 22, "varaukset": 2}]}, {"title": "Kunnian hinta", "year": 2024, "niteita": 104, "kimpat": 6, "points": [{"date": "2026-06-24", "lainassa": 16, "varaukset": 1}, {"date": "2026-06-29", "lainassa": 20, "varaukset": 0}]}, {"title": "Tämä on ryöstö!", "year": 2024, "niteita": 76, "kimpat": 6, "points": [{"date": "2026-06-24", "lainassa": 10, "varaukset": 1}, {"date": "2026-06-29", "lainassa": 10, "varaukset": 1}]}, {"title": "Kirvesmies", "year": 2025, "niteita": 84, "kimpat": 6, "points": [{"date": "2026-06-24", "lainassa": 36, "varaukset": 5}, {"date": "2026-06-29", "lainassa": 29, "varaukset": 5}]}];
+const TOTAL = [{"date": "2026-06-24", "lainassa": 109, "varaukset": 11}, {"date": "2026-06-29", "lainassa": 109, "varaukset": 10}];
 function card(b){
   const el=document.createElement('div'); el.className='card';
   el.innerHTML=`<h2>${b.title} <span style="color:#9aa0aa;font-weight:400">(${b.year})</span></h2>`+
